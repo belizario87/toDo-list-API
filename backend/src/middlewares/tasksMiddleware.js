@@ -1,19 +1,21 @@
-const validateBody = (req, res, next) => {
+const validateFields = (req, res, next) => {
   const { body } = req;
 
-  if (body.title === undefined) {
-    return res.status(400).json({ message: 'O campo "title" é obrigatório' });
-  }
-
-  if (body.title === "") {
+  if (body.status === undefined || body.title === undefined) {
     return res
       .status(400)
-      .json({ message: 'O campo "title" nao pode ser vazio' });
+      .json({ message: 'O campo "status" e "title" são obrigatórios' });
+  }
+
+  if (body.status === "" || body.title === "") {
+    return res
+      .status(400)
+      .json({ message: 'Os campos "status" e "title" não podem ser vazios' });
   }
 
   next();
 };
 
 module.exports = {
-  validateBody,
+  validateFields,
 };
